@@ -26,47 +26,25 @@ class RangeController {
       return res.status(400).json({ error: 'Range already exists.' });
     }
 
-    const { id, operator, start, end } = await Range.create(req.body);
+    const { id, operator, start, end, active } = await Range.create(req.body);
 
     return res.json({
       id,
       operator,
       start,
       end,
+      active,
     });
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      operator: Yup.number().required(),
-      start: Yup.number().required(),
-      end: Yup.number().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
-
     const { rangeId } = req.params;
-    const { operator, start, end } = req.body;
+
     const range = await Range.findByPk(rangeId);
 
-    if (start !== range.start) {
-      const publisherExists = await Range.findOne({ where: { start } });
+    const updated = await range.update(req.body);
 
-      if (publisherExists) {
-        return res.status(400).json({ error: 'Range already exists.' });
-      }
-    }
-
-    const { id } = await range.update(req.body);
-
-    return res.json({
-      id,
-      operator,
-      start,
-      end,
-    });
+    return res.json(updated);
   }
 }
 

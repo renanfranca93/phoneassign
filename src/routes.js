@@ -3,6 +3,7 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import PublisherController from './app/controllers/PublisherController';
 import RangeController from './app/controllers/RangeController';
+import AssignmentController from './app/controllers/AssignmentController';
 import SessionController from './app/controllers/SessionController';
 
 import authMiddleware from './app/middlewares/auth';
@@ -24,5 +25,9 @@ routes.put('/publishers/:publisherId', PublisherController.update);
 routes.get('/ranges', RangeController.index);
 routes.post('/ranges', RangeController.store);
 routes.put('/ranges/:rangeId', RangeController.update);
+
+routes.get('/assignments', AssignmentController.index);
+routes.post('/assignments', AssignmentController.store);
+routes.put('/assignments/:assignmentId', AssignmentController.update);
 
 export default routes;

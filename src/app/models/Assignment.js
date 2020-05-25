@@ -1,10 +1,11 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Range extends Model {
+class Assignment extends Model {
   static init(sequelize) {
     super.init(
       {
         operator: Sequelize.INTEGER,
+        publisher_id: Sequelize.INTEGER,
         start: Sequelize.INTEGER,
         end: Sequelize.INTEGER,
         active: Sequelize.BOOLEAN,
@@ -18,4 +19,4 @@ class Range extends Model {
   }
 }
 
-export default Range;
+export default Assignment;
